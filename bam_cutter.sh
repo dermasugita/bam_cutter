@@ -5,6 +5,8 @@
 
 input=$1
 row=$2 
+pathplusID=${input%.bam}
+ID=${pathplusID##*/}
 
 if [ ! -e output ]; then
 	mkdir output
@@ -16,6 +18,6 @@ sam_body=`samtools view $input | head -n $row`
 
 echo -e "$sam_header$sam_body" > ./output/cutted.sam
 
-samtools view -bS  ./output/cutted.sam > ./output/cutted.bam
+samtools view -bS  ./output/cutted.sam > ./output/${ID}.cutted.bam
 
 rm ./output/cutted.sam
